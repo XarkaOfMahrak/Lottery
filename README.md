@@ -1,2 +1,2 @@
 # Lottery
-Small website to run a Tipeee lottery
+Small website to run a Tipeee lottery (WIP)
