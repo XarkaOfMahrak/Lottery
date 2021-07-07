@@ -43,7 +43,15 @@ function readSomeLines(file, maxlines, forEachLine, onComplete) {
 			onComplete(); // Done
 			return;
 		}
-		var slice = file.slice(offset, offset + CHUNK_SIZE);
+		let slice = file.slice(offset, offset + CHUNK_SIZE);
 		fr.readAsArrayBuffer(slice);
 	}
+}
+function addLog(text){
+	const logtext = document.getElementById("Logs")
+	logtext.textContent += text + "\n"
+}
+function clearLog(){
+	const logtext = document.getElementById("Logs")
+	logtext.textContent = ""
 }
