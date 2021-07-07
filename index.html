@@ -4,6 +4,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Xarka">
+    <script type="text/javascript" src="scripts/random.js"></script>
+    <script type="text/javascript" src="scripts/papaparse.min.js"></script>
+    <script type="text/javascript" src="scripts/jschardet.min.js"></script>
+    <script type="text/javascript" src="scripts/tools.js"></script>
+    <script type="text/javascript" src="scripts/lottery.js"></script>
+
     <title>Tipeee Lottery</title>
 
     <!-- Bootstrap core CSS -->
@@ -34,28 +40,40 @@
     </div>
     <div class="container">
         <h2 class="mt-4">Selectionner CSV</h2>
-        <p><label for="tipeee_csv">CSV Tipeee : </label>
+        <div class="card card-body">
+            <form class="row g-3">
+                <div class="col-12">
+                    <label for="tipeee_csv" class="form-label">Fichier CSV Tipeee</label>
+                    <input type="file"
+                           id="tipeee_csv"
+                           accept="text/csv" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="q_mens" class="form-label">Entrées tip mensuel</label>
+                    <input type="number" class="form-control" id="q_mens" value="2" min="1">
+                </div>
+                <div class="col-md-4">
+                    <label for="q_unic" class="form-label">Entrées tip unique</label>
+                    <input type="number" class="form-control" id="q_unic" value="1" min="1">
+                </div>
+                <div class="col-md-4">
+                    <label for="merge_tip" class="form-label">Fusionner les tips multiples</label>
+                    <select class="form-select" aria-label="Fusion tip multiples" id="merge_tip">
+                        <option value="oui" selected>Oui</option>
+                        <option value="non">Non</option>
+                    </select>
 
-        <input type="file"
-               id="tipeee_csv" name="tipeee_csv"
-               accept="text/csv">
-        </p>
-        <p>
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#importSettings" role="button" aria-expanded="false" aria-controls="importSettings">
-                Paramettres avancés
-            </a>
-        </p>
-        <div class="collapse" id="importSettings">
-            <div class="card card-body">
-                <label for="q_unic">Nombre d'entrées pour un tip unique :</label>
-                <input type="number" id="q_unic" name="q_unic" min="1" value="1">
-                <label for="q_unic">Nombre d'entrées pour un tip mensuel :</label>
-                <input type="number" id="q_unic" name="q_unic" min="1" value="2">
-
-            </div>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary" onclick='event.preventDefault();startImport(document.getElementById("tipeee_csv"))'>Importer</button>
+                </div>
+            </form>
         </div>
     </div>
-
+    <div class="mb-3">
+        <label for="Logs" class="form-label">Logs</label>
+        <textarea class="form-control" id="Logs" rows="3"></textarea>
+    </div>
 </main>
 
 <footer class="footer mt-auto py-3 bg-light">
