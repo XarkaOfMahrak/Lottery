@@ -10,7 +10,7 @@
     <script type="text/javascript" src="scripts/tools.js"></script>
     <script type="text/javascript" src="scripts/lottery.js"></script>
 
-    <title>Tipeee Lottery</title>
+    <title>Lotterie Tipeee</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,6 +18,11 @@
     <style>
         .table-responsive {
             max-height:20px;
+        }
+
+        .spoiler{
+            background-color: #000000;
+            color:#000000;
         }
     </style>
     <meta name="theme-color" content="#7952b3">
@@ -27,7 +32,7 @@
 <!-- Begin page content -->
 <main class="flex-shrink-0">
     <div class="container">
-        <h1 class="mt-5">Lottery</h1>
+        <h1 class="mt-5">Lotterie Tipeee</h1>
     </div>
     <div class="container" id="step_import">
         <h2 class="mt-4">1. Importer un CSV de Tipeee</h2>
@@ -75,21 +80,43 @@
             </table>
             <form class="row g-3">
                 <div class="col-md-4">
-                    <label for="q_mens" class="form-label">Nombre de gagnants</label>
-                    <input type="number" class="form-control" id="q_mens" value="1" min="1">
+                    <label for="nb_win" class="form-label">Nombre de gagnants</label>
+                    <input type="number" class="form-control" id="nb_win" value="1" min="1">
                 </div>
                 <div class="col-md-4">
-                    <label for="merge_tip" class="form-label">Autoriser multiple gains</label>
-                    <select class="form-select" aria-label="Fusion tip multiples" id="merge_tip">
+                    <label for="allow_multi" class="form-label">Autoriser multiple gains</label>
+                    <select class="form-select" id="allow_multi">
                         <option value="oui">Oui</option>
                         <option value="non" selected>Non</option>
                     </select>
-
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <label for="shuffle_list" class="form-label">Pré-mélanger la liste</label>
+                    <select class="form-select" id="shuffle_list">
+                        <option value="oui" selected>Oui</option>
+                        <option value="non">Non</option>
+                    </select>
                 </div>
                 <div class="col-12">
-                    <button class="btn btn-primary" onclick='event.preventDefault()'>Tirer</button>
+                    <button class="btn btn-primary" onclick='event.preventDefault();draw(tips)'>Tirer</button>
                 </div>
             </form>
+        </div>
+    </div>
+    <div class="container d-none" id="step_win">
+        <h2 class="mt-4">3. Résultat</h2>
+        <div class="card card-body">
+            <table class="table table-hover table-sm table-responsive" id="winlist">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Gagnant</th>
+                    <th scope="col">ID Tipeee</th>
+                </tr>
+                </thead>
+            </table>
         </div>
     </div>
     <div class="mb-3 container">
