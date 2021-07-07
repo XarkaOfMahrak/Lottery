@@ -15,7 +15,9 @@ function startImport(fileInput){
 			complete: function(results) {
 				console.log(results);
 				logtext=document.getElementById("Logs")
+				logtext.textContent = "Import Done \n"
 				results.errors.forEach(element => logtext.textContent += "Line " + (element.row +1) + " : " + element.message + "\n");
+
 			}
 		});
 	});
