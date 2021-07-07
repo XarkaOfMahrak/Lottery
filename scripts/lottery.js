@@ -75,6 +75,8 @@ function draw(tiplist){
 	const nb_win=parseInt(document.getElementById("nb_win").value)
 	const allow_multi=(document.getElementById("allow_multi").value === "oui")
 	const shuffle_list=(document.getElementById("shuffle_list").value === "oui")
+	const random_org=(document.getElementById("random_org").value === "oui")
+
 
 	for (const entry of tiplist){
 		for (let i = 0; i < entry["entries"]; i++) {
@@ -95,7 +97,7 @@ function draw(tiplist){
 	let tries = 0
 	const nbr_pick = picklist.length
 	while (!(winners.length >= nb_win || tries++ >= nb_win*10)) {
-		const randnbr=getRand(0,nbr_pick-1)
+		const randnbr=getRand(0,nbr_pick-1, random_org)
 		let picked=picklist[randnbr]
 		addLog("==> Rand: " + randnbr + "; Tipeur: "+picked["id"])
 		if (!allow_multi && winners.find(e => e["id"] === picked["id"]) !== undefined ){

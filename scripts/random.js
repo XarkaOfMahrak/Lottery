@@ -55,6 +55,35 @@ function shuffleArray(array) {
 	}
 }
 
-function getRand(min, max, randomorg){
-	return secureRand(min,max)
+function randomorg(min, max){
+	const request = new XMLHttpRequest();
+	request.open('GET', 'https://www.random.org/integers/?num=1&min='+min+'&max='+max+'&col=1&base=10&format=plain&rnd=new', false);  // `false` makes the request synchronous
+	request.send(null);
+
+	if (request.status === 200) {
+		const val=parseInt(request.responseText)
+		if (!isNaN(val)) {
+			addLog("===> Random.org : "+val)
+			return val;
+		} else {
+			throw("Invalid data from Random.org")
+		}
+
+	} else {
+		throw("Could not contact Random.org")
+	}
+}
+
+function getRand(min, max, userandomorg){
+	if (userandomorg) {
+		try {
+			return randomorg(min, max)
+			}
+			catch (e) {
+				addLog("!!! Acces a Random.org Impossible, Fallback en local !!!")
+				return secureRand(min,max)
+			}
+	} else {
+		return secureRand(min,max)
+	}
 }
