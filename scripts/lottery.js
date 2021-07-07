@@ -11,7 +11,7 @@ function startImport(fileInput){
 	const q_unic=parseInt(document.getElementById("q_unic").value)
 	const q_mens=parseInt(document.getElementById("q_mens").value)
 	const merge_tip=(document.getElementById("merge_tip").value === "oui")
-	readSomeLines(file, 1, function(line) {
+	readSomeLines(file, 5, function(line) {
 		sample += line
 	}, function onComplete() {
 		const encoding=jschardet.detect(sample).encoding
