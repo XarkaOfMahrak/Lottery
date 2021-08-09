@@ -13,6 +13,17 @@ function startImport(fileInput){
 	const q_unic_min=parseInt(document.getElementById("q_unic_min").value)
 	const q_mens_min=parseInt(document.getElementById("q_mens_min").value)
 	const merge_tip=(document.getElementById("merge_tip").value === "oui")
+
+	//We save the values
+	localStorage.setItem('import_data',JSON.stringify({
+		'q_unic': q_unic,
+		'q_mens': q_mens,
+		'q_unic_min': q_unic_min,
+		'q_mens_min': q_mens_min,
+		'merge_tip': merge_tip
+
+	}))
+
 	readSomeLines(file, 5, function(line) {
 		sample += line
 	}, function onComplete() {
@@ -68,6 +79,7 @@ function startImport(fileInput){
 					}
 
 					document.getElementById("tiplist").appendChild(tbody)
+					loadDraw()
 					document.getElementById("step_import").classList.toggle("d-none")
 					document.getElementById("step_pick").classList.toggle("d-none")
 				} else {
@@ -93,7 +105,14 @@ function draw(tiplist){
 	const allow_multi=(document.getElementById("allow_multi").value === "oui")
 	const shuffle_list=(document.getElementById("shuffle_list").value === "oui")
 	const random_org=(document.getElementById("random_org").value === "oui")
+	//We save the values
+	localStorage.setItem('draw_data',JSON.stringify({
+		'nb_win': nb_win,
+		'allow_multi': allow_multi,
+		'shuffle_list': shuffle_list,
+		'random_org': random_org
 
+	}))
 
 	for (const entry of tiplist){
 		for (let i = 0; i < entry["entries"]; i++) {
@@ -135,4 +154,56 @@ function draw(tiplist){
 	}
 	document.getElementById("winlist").appendChild(tbody)
 	document.getElementById("step_win").classList.remove("d-none")
+}
+
+function loadImport(){
+	//We get settings
+	let data
+	try {
+		data = JSON.parse(localStorage.getItem('import_data'))
+		console.log(data)
+		data = (data === null ? [] : data)
+	} catch (e) {
+		data = []
+	}
+
+	if ('q_unic' in data)
+		document.getElementById("q_unic").value = data['q_unic']
+	if ('q_mens' in data)
+		document.getElementById("q_mens").value = data['q_mens']
+	if ('q_unic_min' in data)
+		document.getElementById("q_unic_min").value = data['q_unic_min']
+	if ('q_mens_min' in data)
+		document.getElementById("q_mens_min").value = data['q_mens_min']
+	if ('merge_tip' in data) {
+		if (data['merge_tip']) document.getElementById("merge_tip").value = "oui"
+		else document.getElementById("merge_tip").value = "non"
+	}
+}
+
+function loadDraw(){
+	//We get settings
+	let data
+	try {
+		data = JSON.parse(localStorage.getItem('draw_data'))
+		console.log(data)
+		data = (data === null ? [] : data)
+	} catch (e) {
+		data = []
+	}
+
+	if ('nb_win' in data)
+		document.getElementById("nb_win").value = data['nb_win']
+	if ('allow_multi' in data) {
+		if (data['allow_multi']) document.getElementById("allow_multi").value = "oui"
+		else document.getElementById("allow_multi").value = "non"
+	}
+	if ('shuffle_list' in data) {
+		if (data['shuffle_list']) document.getElementById("shuffle_list").value = "oui"
+		else document.getElementById("shuffle_list").value = "non"
+	}
+	if ('random_org' in data) {
+		if (data['random_org']) document.getElementById("random_org").value = "oui"
+		else document.getElementById("random_org").value = "non"
+	}
 }
