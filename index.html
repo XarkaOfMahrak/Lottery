@@ -44,15 +44,23 @@
                            id="tipeee_csv"
                            accept="text/csv" class="form-control">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="q_mens" class="form-label">Entrées tip mensuel</label>
                     <input type="number" class="form-control" id="q_mens" value="2" min="1">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
+                    <label for="q_mens_min" class="form-label">Tip mensuel minimum (€)</label>
+                    <input type="number" class="form-control" id="q_mens_min" value="0" min="0">
+                </div>
+                <div class="col-md-6">
                     <label for="q_unic" class="form-label">Entrées tip unique</label>
                     <input type="number" class="form-control" id="q_unic" value="1" min="1">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
+                    <label for="q_unic_min" class="form-label">Tip unique minimum (€)</label>
+                    <input type="number" class="form-control" id="q_unic_min" value="0" min="0">
+                </div>
+                <div class="col-md-6">
                     <label for="merge_tip" class="form-label">Fusionner les tips multiples</label>
                     <select class="form-select" aria-label="Fusion tip multiples" id="merge_tip">
                         <option value="oui" selected>Oui</option>

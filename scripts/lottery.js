@@ -10,6 +10,8 @@ function startImport(fileInput){
 	let sample = ""
 	const q_unic=parseInt(document.getElementById("q_unic").value)
 	const q_mens=parseInt(document.getElementById("q_mens").value)
+	const q_unic_min=parseInt(document.getElementById("q_unic_min").value)
+	const q_mens_min=parseInt(document.getElementById("q_mens_min").value)
 	const merge_tip=(document.getElementById("merge_tip").value === "oui")
 	readSomeLines(file, 5, function(line) {
 		sample += line
@@ -19,17 +21,32 @@ function startImport(fileInput){
 			header: true,
 			encoding:encoding,
 			step: function(results) {
-				if ("Identifiant" in results.data && "Récurrence du Tip" in results.data && "Pseudonyme" in results.data){
+				if ("Identifiant" in results.data && "Récurrence du Tip" in results.data && "Pseudonyme" in results.data && "Montant des Tips" in results.data){
+					const tipval=parseInt(results.data["Montant des Tips"])
+					if (Number.isNaN(tipval)) return;
+
+					if ((results.data["Récurrence du Tip"] === "par mois" && tipval < q_mens_min) || (results.data["Récurrence du Tip"] !== "par mois" && tipval < q_unic_min)) {
+						addLog('Ignored tip: '+ results.data["Identifiant"] + ', '+results.data["Pseudonyme"]+', '+results.data["Récurrence du Tip"]+', '+tipval)
+						return;
+					}
 					const entries = (results.data["Récurrence du Tip"] === "par mois" ? q_mens : q_unic)
-					if (merge_tip){ //We make sure we don't already have our entry.
-						const lastentry=tips.findIndex(x => x.id === results.data["Identifiant"]);
-						if (lastentry !== -1){
-							if (tips[lastentry]["entries"] < entries) tips[lastentry]["entries"]  = entries;
+					if (merge_tip) { //We make sure we don't already have our entry.
+						const lastentry = tips.findIndex(x => x.id === results.data["Identifiant"]);
+						if (lastentry !== -1) {
+							if (tips[lastentry]["entries"] < entries) tips[lastentry]["entries"] = entries;
 						} else {
-							tips.push({"id": results.data["Identifiant"], "nick": results.data["Pseudonyme"], "entries": entries})
+							tips.push({
+								"id": results.data["Identifiant"],
+								"nick": results.data["Pseudonyme"],
+								"entries": entries
+							})
 						}
 					} else {
-						tips.push({"id": results.data["Identifiant"], "nick": results.data["Pseudonyme"], "entries": entries})
+						tips.push({
+							"id": results.data["Identifiant"],
+							"nick": results.data["Pseudonyme"],
+							"entries": entries
+						})
 					}
 				}
 			},
