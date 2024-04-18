@@ -26,7 +26,7 @@ function secureRand(min, max) {
 		let values = new Uint8Array(bytes);
 		let rval;
 		do {
-			window.crypto.getRandomValues(values);
+			crypto.getRandomValues(values);
 
 			// Turn the random bytes into an integer
 			rval = 0;
