@@ -1,0 +1,76 @@
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Xarka">
+    <script type="text/javascript" src="scripts/random.js"></script>
+    <script type="text/javascript" src="scripts/tools.js"></script>
+
+
+    <title>Dice</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        .table-responsive {
+            max-height:20px;
+        }
+
+        .spoiler{
+            background-color: #000000;
+            color:#000000;
+        }
+    </style>
+    <meta name="theme-color" content="#7952b3">
+</head>
+<body class="d-flex flex-column h-100">
+
+<!-- Begin page content -->
+<main class="flex-shrink-0">
+    <div class="container">
+        <h1 class="mt-5">Dice</h1>
+    </div>
+    <div class="container" id="dice">
+        <div class="card card-body">
+            <form class="row g-3">
+                <div class="col-md-6">
+                    <label for="q_mens" class="form-label">Dice Value</label>
+                    <input type="number" class="form-control" id="dice_val" min="1">
+                </div>
+                <div class="col-md-6">
+                    <label for="q_mens_min" class="form-label">Result</label>
+                    <input type="number" class="form-control" id="dice_res" readonly>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary" onclick='event.preventDefault();document.getElementById("dice_res").value=getRand(1,parseInt(document.getElementById("dice_val").value),false)'>Roll</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="mb-3 container">
+        <label for="Logs" class="form-label">
+        <a data-bs-toggle="collapse" href="#Logs" role="button" aria-expanded="false" aria-controls="Logs">
+            Logs
+        </a></label>
+        <textarea class="form-control collapse" id="Logs" rows="3"></textarea>
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">Audit me on <a href="https://github.com/Daiyousei/Lottery">GitHub</a></span>
+    </div>
+</footer>
+
+<script>
+    var diceVal = parseInt(location.hash.substr(1));
+    document.getElementById("dice_val").value=diceVal
+    
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>
